@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waymaker Utility Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#131417;
+    --blueprint:#1E3A6E;
+    --blue-bright:#2E9FE8;
+    --rust:#9E2530;
+    --paper:#EDE6D6;
+    --paper-dim:#E2D9C4;
+    --charcoal:#26241F;
+    --line:#c9bea3;
+    --steel:#C6CBCF;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Source Sans 3', sans-serif;
+    background:var(--paper);
+    color:var(--charcoal);
+    line-height:1.5;
+  }
+  h1,h2,h3,.eyebrow{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:var(--ink);
+    color:var(--paper);
+    padding:18px 40px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    font-size:1.15rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    display:flex; align-items:center; gap:10px;
+  }
+  .brand .mark{color:var(--blue-bright);}
+  nav ul{list-style:none; display:flex; gap:32px;}
+  nav ul li a{
+    font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em;
+    font-weight:500; opacity:0.85; text-decoration:none;
+  }
+  nav ul li a:hover, nav ul li a:focus-visible{opacity:1; text-decoration:underline;}
+
+  /* HERO */
+  .hero{
+    background:var(--ink);
+    color:var(--paper);
+    padding:90px 40px 60px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-inner{
+    max-width:720px; margin:0 auto;
+    text-align:center;
+  }
+  .hero-logo{
+    width:100%;
+    max-width:460px;
+    margin:0 auto 36px;
+    display:block;
+  }
+  .eyebrow{
+    color:var(--rust); font-size:0.8rem; font-weight:600;
+    margin-bottom:14px; display:block;
+  }
+  .hero h1{
+    font-size:3rem; font-weight:600; line-height:1.05;
+    margin-bottom:22px;
+    color:var(--steel);
+    background:linear-gradient(180deg,#F2F3F4 0%, #C6CBCF 45%, #9BA1A6 55%, #DCDFE1 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .hero p.lede{
+    font-family:'Source Sans 3', sans-serif;
+    font-size:1.12rem; color:var(--paper-dim);
+    max-width:48ch; margin:0 auto 30px;
+  }
+  .cta-row{display:flex; gap:16px; flex-wrap:wrap; justify-content:center;}
+  .btn{
+    display:inline-block; padding:13px 26px;
+    font-family:'Oswald', sans-serif; font-size:0.85rem;
+    text-transform:uppercase; letter-spacing:0.06em; font-weight:500;
+    border-radius:2px; text-decoration:none; transition:all .15s ease;
+  }
+  .btn-primary{background:var(--rust); color:var(--paper);}
+  .btn-primary:hover, .btn-primary:focus-visible{background:#7c1c24;}
+  .btn-ghost{border:1px solid rgba(237,230,214,0.4); color:var(--paper);}
+  .btn-ghost:hover, .btn-ghost:focus-visible{border-color:var(--paper); background:rgba(237,230,214,0.08);}
+
+  /* Route diagram */
+  .route-wrap{position:relative;}
+  svg.route text{font-family:'IBM Plex Mono', monospace;}
+
+  /* SECTION generic */
+  section{padding:70px 40px;}
+  .section-inner{max-width:1080px; margin:0 auto;}
+  .section-head{max-width:640px; margin-bottom:44px;}
+  .section-head .eyebrow{color:var(--rust);}
+  .section-head h2{font-size:2rem; color:var(--ink);}
+
+  .about p{max-width:66ch; font-size:1.05rem; color:#3a382f;}
+  .about p + p{margin-top:16px;}
+
+  /* Services pillars */
+  .pillars{
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    border-top:1px solid var(--line);
+  }
+  .pillar{
+    padding:36px 34px;
+    border-bottom:1px solid var(--line);
+  }
+  .pillar:first-child{border-right:1px solid var(--line);}
+  .pillar .who{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem;
+    color:var(--blueprint); letter-spacing:0.05em; margin-bottom:8px;
+    display:block;
+  }
+  .pillar h3{font-size:1.4rem; color:var(--ink); margin-bottom:16px;}
+  .pillar ul{list-style:none; display:flex; flex-direction:column; gap:10px;}
+  .pillar ul li{
+    position:relative; padding-left:20px; font-size:0.98rem; color:#3a382f;
+  }
+  .pillar ul li::before{
+    content:"—"; position:absolute; left:0; color:var(--rust);
+  }
+
+  /* Why band */
+  .why{background:var(--ink); color:var(--paper);}
+  .why .section-head h2{color:var(--paper);}
+  .why-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:rgba(237,230,214,0.15);
+  }
+  .why-card{
+    background:var(--ink); padding:28px 22px;
+  }
+  .why-card .mono{font-size:0.75rem; color:var(--rust); display:block; margin-bottom:10px;}
+  .why-card h4{
+    font-family:'Oswald', sans-serif; font-size:1.05rem; font-weight:500;
+    margin-bottom:10px; text-transform:none; letter-spacing:0;
+  }
+  .why-card p{font-size:0.92rem; color:var(--paper-dim);}
+
+  /* Contact */
+  .contact{background:var(--paper-dim);}
+  .contact-inner{
+    display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:start;
+  }
+  .contact h2{color:var(--ink); font-size:2rem; margin-bottom:16px;}
+  .contact p{max-width:42ch; color:#3a382f; margin-bottom:20px;}
+  .contact-card{
+    background:var(--ink); color:var(--paper);
+    padding:32px; border-radius:2px;
+  }
+  .contact-card .mono{font-size:0.8rem; color:var(--paper-dim); display:block; margin-bottom:4px;}
+  .contact-card .line{margin-bottom:20px;}
+  .contact-card .val{font-size:1.05rem; font-weight:500;}
+
+  footer{
+    padding:24px 40px; background:var(--ink); color:rgba(237,230,214,0.5);
+    font-size:0.8rem; text-align:center;
+  }
+
+  @media (max-width:820px){
+    .hero-inner{grid-template-columns:1fr;}
+    .pillars{grid-template-columns:1fr;}
+    .pillar:first-child{border-right:none;}
+    .why-grid{grid-template-columns:1fr 1fr;}
+    .contact-inner{grid-template-columns:1fr;}
+    nav ul{display:none;}
+    .hero h1{font-size:2.2rem;}
+  }
+
+  :focus-visible{outline:2px solid var(--rust); outline-offset:2px;}
+  @media (prefers-reduced-motion: reduce){
+    .route-line{stroke-dashoffset:0 !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand"><span class="mark">/</span>Waymaker Utility Solutions</div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <img src="WMUS.png" alt="Waymaker Utility Solutions logo — Texas silhouette with pipe and blue flame" class="hero-logo">
+    <span class="eyebrow">Gas &amp; Utility Contracting — Fort Worth, TX</span>
+    <h1>We lay the whole path. Bid to compliant.</h1>
+    <p class="lede">A founder-led utility contracting team built on field-tested pipeline expertise and bilingual compliance management — so your crews stay qualified and your projects stay on schedule.</p>
+    <div class="cta-row">
+      <a href="#contact" class="btn btn-primary">Request a bid</a>
+      <a href="#services" class="btn btn-ghost">See our services</a>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="eyebrow">About</span>
+      <h2>Built by the people who've done the work.</h2>
+    </div>
+    <p>Waymaker Utility Solutions is a founder-operated gas and utility contracting company based in Fort Worth. We were built around a simple idea: the companies who hire utility contractors don't just need pipe in the ground — they need a partner who bids accurately, keeps crews qualified, and communicates clearly the whole way through.</p>
+    <p>Our team combines hands-on pipeline estimating and inspection experience with dedicated, bilingual compliance management — so nothing falls through the cracks between the bid and the final inspection.</p>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="eyebrow">Services</span>
+      <h2>Two disciplines. One point of contact.</h2>
+    </div>
+  </div>
+  <div class="pillars">
+    <div class="pillar">
+      <span class="who">FIELD &amp; ESTIMATING — MONTY GORDON</span>
+      <h3>Estimating &amp; Field Operations</h3>
+      <ul>
+        <li>Project bidding and cost estimating for gas utility work</li>
+        <li>Pipeline inspection oversight</li>
+        <li>Crew hiring, scheduling, and field supervision</li>
+        <li>Direct coordination with gas company project leads</li>
+      </ul>
+    </div>
+    <div class="pillar">
+      <span class="who">COMPLIANCE &amp; OPERATIONS — SUSY GORDON</span>
+      <h3>Bilingual OQ Compliance &amp; Back Office</h3>
+      <ul>
+        <li>Operator Qualification (OQ) tracking and renewal management</li>
+        <li>Bilingual crew training and compliance walkthroughs — English &amp; Spanish</li>
+        <li>Invoicing, bid documentation, and project administration</li>
+        <li>Client-facing reporting and back-office systems</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="why" class="why">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="eyebrow">Why Waymaker</span>
+      <h2>What a smaller team gets you.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="mono">01</span>
+        <h4>Direct access to founders</h4>
+        <p>No layers between you and the people bidding and running your project.</p>
+      </div>
+      <div class="why-card">
+        <span class="mono">02</span>
+        <h4>Bilingual compliance, built in</h4>
+        <p>OQ requirements taught and tracked in the language your crew works in.</p>
+      </div>
+      <div class="why-card">
+        <span class="mono">03</span>
+        <h4>Accurate, honest bidding</h4>
+        <p>Estimating grounded in real field experience, not guesswork.</p>
+      </div>
+      <div class="why-card">
+        <span class="mono">04</span>
+        <h4>Built to move fast</h4>
+        <p>A lean team means fewer handoffs and quicker turnaround.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="section-inner contact-inner">
+    <div>
+      <h2>Let's talk about your next project.</h2>
+      <p>Whether it's a bid, an inspection, or getting your crew's OQs current — reach out and we'll get back to you directly.</p>
+    </div>
+    <div class="contact-card">
+      <div class="line">
+        <span class="mono">LOCATION</span>
+        <div class="val">Fort Worth, TX</div>
+      </div>
+      <div class="line">
+        <span class="mono">EMAIL</span>
+        <div class="val">info@waymakerutility.com</div>
+      </div>
+      <div class="line">
+        <span class="mono">PHONE</span>
+        <div class="val">(placeholder — add your number)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Waymaker Utility Solutions — concept preview. Not yet a registered business name or live domain.
+</footer>
+
+</body>
+</html>
